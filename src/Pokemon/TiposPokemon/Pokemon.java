@@ -2,24 +2,21 @@ package Pokemon.TiposPokemon;
 
 import Pokemon.Interfaces.Ensenyar;
 
-import java.util.List;
-
 public abstract class Pokemon implements Ensenyar {
     protected String nombre;
     protected int nivel;
     protected String tipoPokeball;
     protected boolean capturado;
-    protected List<String> ataques;
 
     // Constructor
-    public Pokemon(String nombre, int nivel, String tipoPokeball, boolean capturado, List<String> ataques) {
+    public Pokemon(String nombre, int nivel, String tipoPokeball, boolean capturado) {
         this.nombre = nombre;
         this.nivel = nivel;
         this.tipoPokeball = tipoPokeball;
         this.capturado = capturado;
-        this.ataques = ataques;
     }
 
+    // Getters y setters
     public String getNombre() {
         return nombre;
     }
@@ -36,9 +33,6 @@ public abstract class Pokemon implements Ensenyar {
         return capturado;
     }
 
-    public List<String> getAtaques() {
-        return ataques;
-    }
 
     public void setNivel(int nivel) {
         this.nivel = nivel;
@@ -48,28 +42,16 @@ public abstract class Pokemon implements Ensenyar {
         this.capturado = capturado;
     }
 
+    // Métodos
     public String toString() {
-        return "Pokemon{" +
-                "nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", tipoPokeball='" + tipoPokeball + '\'' +
-                ", capturado=" + capturado +
-                ", ataques=" + ataques +
-                '}';
+        return this.nombre + " Nivel: " + this.nivel + " Tipo de pokeball: " + this.tipoPokeball + " Capturado: " + this.capturado;
     }
 
-    public void subirNivel() {
-        this.nivel++;
-        System.out.println(this.nombre + " ha subido de nivel");
-        if (this.nivel == 20) {
-            System.out.println(this.nombre + " ha evolucionado");
-            ensenyar();
-        }
-    }
     public void ensenyar() {
         System.out.println(this.nombre + " ha aprendido su habilidad");
     }
-    public void ataqueComun() {
+
+    public void ataqueBasico() {
         System.out.println(this.nombre + " hizo un Ataque común");
     }
 
@@ -77,5 +59,19 @@ public abstract class Pokemon implements Ensenyar {
         System.out.println(this.nombre + " ha huido");
     }
 
+    public void subirNivel() {
+        this.nivel++;
+        if (this.nivel >= 100) {
+            System.out.println("El pokemon ha llegado al nivel máximo");
+            this.nivel = 100;
+        } else {
+            System.out.println(this.nombre + " ha subido de nivel");
+            if (this.nivel == 20) {
+                System.out.println(this.nombre + " ha evolucionado");
+                ensenyar();
+            }
+        }
+
+    }
 
 }

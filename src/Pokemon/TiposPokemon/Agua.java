@@ -1,13 +1,19 @@
 package Pokemon.TiposPokemon;
 
-import java.util.List;
+import Pokemon.Interfaces.IAgua;
+import Pokemon.auxiliares.agua;
 
-public class Agua extends Pokemon  {
+public class Agua extends Pokemon implements IAgua {
     protected boolean puedeSurfear;
+    protected agua[] ataques;
 
-    public Agua(String nombre, int nivel, String tipoPokeball, boolean capturado, List<String> ataques, boolean puedeSurfear) {
-        super(nombre, nivel, tipoPokeball, capturado, ataques);
+    public Agua(String nombre, int nivel, String tipoPokeball, boolean capturado, agua[] ataques, boolean puedeSurfear) {
+        super(nombre, nivel, tipoPokeball, capturado);
         this.puedeSurfear = puedeSurfear;
+
+        ataques = new agua[2];
+        ataques[0] = agua.hidrobomba;
+        ataques[1] = agua.aguapolar;
     }
 
     @Override
@@ -21,4 +27,13 @@ public class Agua extends Pokemon  {
     }
 
 
+    @Override
+    public void hidrobomba() {
+        System.out.println(this.nombre + " ha usado hidrobomba");
+    }
+
+    @Override
+    public void aguapolar() {
+        System.out.println(this.nombre + " ha usado aguapolar");
+    }
 }
