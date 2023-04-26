@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cbb88669-595a-4874-a56b-b4fc0a7eac0f" name="Changes" comment="Clases pokemon hechas.&#10;Empezamos clases de Entrenador">
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/Interfaces/IAgua.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/Interfaces/IFuego.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/Interfaces/IPlanta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/Interfaces/IVolador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/auxiliares/agua.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/auxiliares/fuego.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/auxiliares/planta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Pokemon/auxiliares/volador.java" afterDir="false" />
+    <list default="true" id="cbb88669-595a-4874-a56b-b4fc0a7eac0f" name="Changes" comment="La cosa funciona bien">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pokemon/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pokemon/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pokemon/TiposEntrenador/Entrenador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pokemon/TiposEntrenador/Entrenador.java" afterDir="false" />
@@ -63,15 +55,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/amgtk/Desktop/PROYECTO FINAL JAVA/DirectorioPokedex&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/amgtk/Desktop/PROYECTO FINAL JAVA/DirectorioPokedex",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Pokemon.Main" />
@@ -122,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682013518262</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="La cosa funciona bien">
+      <created>1682441923865</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682441923865</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,6 +151,7 @@
     <MESSAGE value="Start" />
     <MESSAGE value="Structure directories created" />
     <MESSAGE value="Clases pokemon hechas.&#10;Empezamos clases de Entrenador" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clases pokemon hechas.&#10;Empezamos clases de Entrenador" />
+    <MESSAGE value="La cosa funciona bien" />
+    <option name="LAST_COMMIT_MESSAGE" value="La cosa funciona bien" />
   </component>
 </project>

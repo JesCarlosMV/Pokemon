@@ -1,9 +1,9 @@
+/* Clase abstracta Entrenador para que no se permita crear objetos Entrenador, y
+ de la que heredaran los 2 entrenadores ( Gym y Calle ),
+* con varios constructores ya que habran entrenadores sin pokemons y/o sin otra lista de entrenadores*/
 package Pokemon.TiposEntrenador;
 
 import Pokemon.TiposPokemon.Pokemon;
-
-import java.util.Arrays;
-
 
 public abstract class Entrenador {
     protected String nombre;
@@ -16,13 +16,11 @@ public abstract class Entrenador {
         this.nombre = nombre;
         this.lvl = lvl;
     }
-
     public Entrenador(String nombre, int lvl, Pokemon[] EQUIPOPOKEMON) {
         this.nombre = nombre;
         this.lvl = lvl;
         this.EQUIPOPOKEMON = EQUIPOPOKEMON;
     }
-
     public Entrenador(String nombre, int lvl, Pokemon[] EQUIPOPOKEMON, Entrenador[] ENTRENADORES) {
         this.lvl = lvl;
         this.EQUIPOPOKEMON = EQUIPOPOKEMON;
@@ -38,12 +36,10 @@ public abstract class Entrenador {
     public String toString() {
         return "\nNombre: " + this.nombre + " - Nivel: " + this.lvl + "\nEquipo pokemon: \n" + mostrarPokemons() + "Entrenadores: " + mostrarEntrenadores();
     }
-
     public void subirLvl() {
         this.lvl++;
         System.out.println("El entrenador " + this.nombre + " ha subido de nivel, ahora es nivel " + this.lvl);
     }
-
     public String mostrarPokemons() {
         String pokemons = "";
 
@@ -54,7 +50,6 @@ public abstract class Entrenador {
         }
         return pokemons;
     }
-
     public String mostrarEntrenadores() {
         String entrenadores = "";
 
@@ -65,6 +60,12 @@ public abstract class Entrenador {
         }
         return entrenadores;
     }
-
-
+    public void agregarPokemon(Pokemon pokemon) {
+        for (int i = 0; i < EQUIPOPOKEMON.length; i++) {
+            if (EQUIPOPOKEMON[i] == null) {
+                EQUIPOPOKEMON[i] = pokemon;
+                break;
+            }
+        }
+    }
 }

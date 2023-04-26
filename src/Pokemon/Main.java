@@ -1,3 +1,6 @@
+/* Main contiene listas con todos los pokemons y entrenadores que encontremos.
+ * El menu de opciones para loguearnos, anyadir, mostrar, eliminar,modificar, buscar,
+ * intentar capturar, ordenar los pokemons y entrenadores*/
 package Pokemon;
 
 import Pokemon.TiposEntrenador.Entrenador;
@@ -13,21 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Main {
     public static void main(String[] args) {
 
         List<Pokemon> LIST_POKEMONS = new ArrayList<>();
         List<Entrenador> LIST_ENTRENADORES = new ArrayList<>();
 
-        cargarPokemonsEnSistema(LIST_POKEMONS);
-        cargarEntrenadoresEnSistema(LIST_ENTRENADORES, LIST_POKEMONS);
+        inicializar(LIST_POKEMONS, LIST_ENTRENADORES);
 
 
-        //boolean login;
-        //do {
-        //    login = login();
-        //} while (!login);
+        boolean login;
+        do {
+            login = login();
+        } while (!login);
 
 
         boolean salir = false;
@@ -46,13 +47,20 @@ public class Main {
                 case 6 -> ordenarPokemonsPorNivel(LIST_POKEMONS);
                 case 7 -> ordenarPokemonsPorNombre(LIST_POKEMONS);
                 case 9 -> intentarCapturarPokemon(LIST_POKEMONS);
+                case 10 -> anyadirEntrenador(LIST_ENTRENADORES, LIST_POKEMONS, sc);
+                case 11 -> eliminarEntrenador(LIST_ENTRENADORES, sc);
+                case 12 -> buscarEntrenadorPorNombre(LIST_ENTRENADORES);
+                case 13 -> mostrarPokemonDeUnTipo(LIST_POKEMONS);
                 case 0 -> salir = true;
                 default -> System.out.println("Opcion incorrecta");
             }
         } while (!salir);
-
     }
 
+
+    // METODOS GESTION POKEMONS
+    //TODO: IMPLEMENTAR TRYCATCH EN TODOS LOS SCANNER
+    //TODO: CONTROL DE ERRORES
     private static void ordenarPokemonsPorNombre(List<Pokemon> listPokemons) {
         listPokemons.sort((o1, o2) -> {
             if (o1.getNombre().compareTo(o2.getNombre()) > 0) {
@@ -66,51 +74,6 @@ public class Main {
         System.out.println("Pokemons ordenados por nombre");
         mostrarTodosPokemon(listPokemons);
     }
-
-    private static void intentarCapturarPokemon(List<Pokemon> listPokemons) {
-        Pokemon p;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese el nombre del pokemon a capturar");
-        String nomb = sc.next().trim().toLowerCase();
-        for (Pokemon pokemon : listPokemons) {
-            if (pokemon.getNombre().trim().toLowerCase().equals(nomb.toLowerCase().trim())) {
-                p = pokemon;
-                if (p.isCapturado()) {
-                    System.out.println("El pokemon ya esta capturado");
-                    return;
-                }
-                System.out.println("Se intentara capturar el pokemon: " + p.toString());
-                System.out.println("seguro capturar? (s/n)");
-                String opcion = sc.next().trim().toLowerCase();
-                if (opcion.equals("s")) {
-                    if (resultadoCaptura()) {
-                        p.setCapturado(true);
-                        System.out.println("Pokemon capturado");
-                        return;
-                    } else {
-                        System.out.println("No se capturo el pokemon");
-                        return;
-                    }
-                } else {
-                    System.out.println("No se capturo el pokemon");
-                    return;
-                }
-            }
-        }
-        System.out.println("No se encontro el pokemon");
-    }
-
-    private static boolean resultadoCaptura() {
-        int random = (int) (Math.random() * 100);
-        if (random < 50) {
-            System.out.println("El pokemon se ha escapado");
-            return false;
-        } else {
-            System.out.println("El pokemon ha sido capturado");
-            return true;
-        }
-    }
-
     private static void ordenarPokemonsPorNivel(List<Pokemon> listPokemons) {
         listPokemons.sort((o1, o2) -> {
             if (o1.getNivel() > o2.getNivel()) {
@@ -124,7 +87,6 @@ public class Main {
         System.out.println("Pokemons ordenados por nivel");
         mostrarTodosPokemon(listPokemons);
     }
-
     private static void eliminarPokemonDelJuego(List<Pokemon> LISTPOKEMONS) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Ingrese el nombre del pokemon a eliminar");
@@ -146,7 +108,6 @@ public class Main {
         }
         System.out.println("No se encontro el pokemon");
     }
-
     private static void agregarPokemonAlJuego(List<Pokemon> LIST_POKEMONS, Scanner sc) {
         String nomb, pokeball, tipo;
         int lvl;
@@ -203,7 +164,6 @@ public class Main {
             System.out.println("Tipo de pokemon incorrecto");
         }
     }
-
     private static boolean nombreRepetido(List<Pokemon> listPokemons, String nomb) {
         for (Pokemon p : listPokemons) {
             if (p.getNombre().trim().toLowerCase().equals(nomb)) {
@@ -212,25 +172,6 @@ public class Main {
         }
         return false;
     }
-
-    private static int mostrarMenu(Scanner sc) {
-        int opcion;
-        System.out.println("--------------------------------------------------");
-        System.out.println("Bienvenido al sistema de Pokemon");
-        System.out.println("1. Listar Todos los pokemon de la pokedex");
-        System.out.println("2. Listar Todos los entrenadores de la pokedex");
-        System.out.println("3. Listar Todos los pokemon de un entrenador");
-        System.out.println("4. Añadir un pokemon al juego");
-        System.out.println("5. Eliminar un pokemon del juego");
-        System.out.println("6. Ordenar los pokemon por nivel");
-        System.out.println("7. Ordenar los pokemon por nombre");
-        System.out.println("9. Intentar capturar un pokemon");
-        System.out.println("0. Salir");
-        System.out.println("--------------------------------------------------");
-        opcion = sc.nextInt();
-        return opcion;
-    }
-
     private static void mostrarPokemonDeUnEntrenador(List<Entrenador> LIST_ENTRENADORES, Scanner sc) {
         System.out.println("Listado de Pokemons de un entrenador");
         System.out.println("Ingrese el nombre del entrenador");
@@ -241,21 +182,198 @@ public class Main {
             }
         }
     }
-
     private static void mostrarTodosEntrenadores(List<Entrenador> LIST_ENTRENADORES) {
         System.out.println("Listado de Entrenadores del juego");
         for (Entrenador e : LIST_ENTRENADORES) {
             System.out.println(e);
         }
     }
-
     private static void mostrarTodosPokemon(List<Pokemon> LIST_POKEMONS) {
         System.out.println("Listado de Pokemons del juego");
         for (Pokemon p : LIST_POKEMONS) {
             System.out.println(p);
         }
     }
+    private static void mostrarPokemonDeUnTipo(List<Pokemon> LIST_POKEMONS) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Listado de Pokemons de un tipo");
+        System.out.println("Ingrese el tipo de pokemon \n fuego => F\n planta => P \n volador => V \n agua => A)");
+        String tipo = sc.next().trim().toLowerCase();
+        if (tipo.equals("f")) {
+            for (Pokemon p : LIST_POKEMONS) {
+                if (p instanceof Fuego) {
+                    System.out.println(p);
+                }
+            }
+        } else if (tipo.equals("p")) {
+            for (Pokemon p : LIST_POKEMONS) {
+                if (p instanceof Planta) {
+                    System.out.println(p);
+                }
+            }
+        } else if (tipo.equals("v")) {
+            for (Pokemon p : LIST_POKEMONS) {
+                if (p instanceof Volador) {
+                    System.out.println(p);
+                }
+            }
+        } else if (tipo.equals("a")) {
+            for (Pokemon p : LIST_POKEMONS) {
+                if (p instanceof Agua) {
+                    System.out.println(p);
+                }
+            }
+        } else {
+            System.out.println("Tipo de pokemon incorrecto");
+        }
+    }
 
+    // METODOS GESTION ENTRENADOR
+    private static void eliminarEntrenador(List<Entrenador> listEntrenadores, Scanner sc) {
+        System.out.println("Ingrese el nombre del entrenador");
+        String nombre = sc.next().trim().toLowerCase();
+        Entrenador e = buscarEntrenadorPorNombre(listEntrenadores, nombre);
+
+        if (e == null) {
+            System.out.println("No se encontro el entrenador");
+            return;
+        }
+
+        listEntrenadores.remove(e);
+        System.out.println("Entrenador eliminado");
+    }
+    private static Entrenador buscarEntrenadorPorNombre(List<Entrenador> listEntrenadores, String nombre) {
+        for (Entrenador entrenador : listEntrenadores) {
+            if (entrenador.getNombre().trim().toLowerCase().equals(nombre)) {
+                return entrenador;
+            }
+        }
+        return null;
+    }
+    private static void buscarEntrenadorPorNombre(List<Entrenador> listEntrenadores) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el nombre del entrenador");
+        String nombre = sc.next().trim().toLowerCase();
+
+        for (Entrenador entrenador : listEntrenadores) {
+            if (entrenador.getNombre().trim().toLowerCase().equals(nombre)) {
+                System.out.println(entrenador);
+                return;
+            }
+        }
+        System.out.println("No se encontro el entrenador");
+    }
+    private static void anyadirEntrenador(List<Entrenador> listEntrenadores, List<Pokemon> listPokemons, Scanner sc) {
+        System.out.println("Ingrese el nombre del entrenador");
+        String nombre = sc.next().trim();
+        System.out.println("nivel del entrenador");
+        int lvl = sc.nextInt();
+        System.out.println("Ingrese el tipo de entrenador (1: Entrenador de calle, 2: Entrenador de gimnasio)");
+        int tipo = sc.nextInt();
+        Entrenador e;
+        if (tipo == 1) {
+            System.out.println("Ingrese el numero de luchas calle");
+            int numLuchasCalle = sc.nextInt();
+            e = new EntrenadorDeCalle(nombre, lvl, numLuchasCalle);
+        } else if (tipo == 2) {
+            System.out.println("ID");
+            int id = sc.nextInt();
+            System.out.println("Ingrese el nombre del gimnasio");
+            String nombreGimnasio = sc.next().trim();
+            e = new EntrenadorDeGimnasio(nombre, lvl, id, nombreGimnasio);
+        } else {
+            System.out.println("Tipo de entrenador incorrecto");
+            return;
+        }
+
+        System.out.println("Añadir pokemon? (1: Si, 2: No)");
+        int opcion = sc.nextInt();
+        if (opcion == 1) {
+            System.out.println("Ingrese el nombre del pokemon");
+            String nombrePoke = sc.next().trim();
+
+            for (Pokemon pokemon : listPokemons) {
+                if (pokemon.getNombre().trim().toLowerCase().equals(nombrePoke.toLowerCase().trim())) {
+                    e.agregarPokemon(pokemon);
+                    listEntrenadores.add(e);
+                    System.out.println("Entrenador agregado");
+                    return;
+                }
+            }
+            System.out.println("No se encontro el pokemon");
+        } else if (opcion == 2) {
+            listEntrenadores.add(e);
+            System.out.println("Entrenador agregado");
+        } else {
+            System.out.println("Opcion incorrecta");
+        }
+    }
+
+
+    // METODOS AUXILIARES
+    private static void inicializar(List<Pokemon> LIST_POKEMONS, List<Entrenador> LIST_ENTRENADORES) {
+        cargarPokemonsEnSistema(LIST_POKEMONS);
+        cargarEntrenadoresEnSistema(LIST_ENTRENADORES, LIST_POKEMONS);
+    }
+    private static int mostrarMenu(Scanner sc) {
+        //TODO: HACER TABLA EN EL MENU DE OPCIONES ,CAMBIAR COLOR CONSOLA?
+        int opcion;
+        System.out.println("--------------------------------------------------");
+        System.out.println("Bienvenido al sistema de Pokemon");
+        System.out.println("1. Listar Todos los pokemon de la pokedex \t\t 2. Listar Todos los entrenadores de la pokedex");
+        System.out.println("3. Listar Todos los pokemon de un entrenador \t\t 4. Añadir un pokemon al juego");
+        System.out.println("5. Eliminar un pokemon del juego \t\t 6. Ordenar los pokemon por nivel");
+        System.out.println("7. Ordenar los pokemon por nombre \t\t 8. Ordenar los pokemon por tipo");
+        System.out.println("9. Intentar capturar un pokemon \t\t 10. Añadir un entrenador");
+        System.out.println("11. Eliminar un entrenador \t\t 12. Buscar un entrenador por nombre");
+        System.out.println("13. Mostrar todos los pokemon de un tipo");
+        System.out.println("0. Salir");
+        System.out.println("--------------------------------------------------");
+        opcion = sc.nextInt();
+        return opcion;
+    }
+    private static void intentarCapturarPokemon(List<Pokemon> listPokemons) {
+        Pokemon p;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el nombre del pokemon a capturar");
+        String nomb = sc.next().trim().toLowerCase();
+        for (Pokemon pokemon : listPokemons) {
+            if (pokemon.getNombre().trim().toLowerCase().equals(nomb.toLowerCase().trim())) {
+                p = pokemon;
+                if (p.isCapturado()) {
+                    System.out.println("El pokemon ya esta capturado");
+                    return;
+                }
+                System.out.println("Se intentara capturar el pokemon: " + p.toString());
+                System.out.println("seguro capturar? (s/n)");
+                String opcion = sc.next().trim().toLowerCase();
+                if (opcion.equals("s")) {
+                    if (resultadoCaptura()) {
+                        p.setCapturado(true);
+                        System.out.println("Pokemon capturado");
+                        return;
+                    } else {
+                        System.out.println("No se capturo el pokemon");
+                        return;
+                    }
+                } else {
+                    System.out.println("No se capturo el pokemon");
+                    return;
+                }
+            }
+        }
+        System.out.println("No se encontro el pokemon");
+    }
+    private static boolean resultadoCaptura() {
+        int random = (int) (Math.random() * 100);
+        if (random < 50) {
+            System.out.println("El pokemon se ha escapado");
+            return false;
+        } else {
+            System.out.println("El pokemon ha sido capturado");
+            return true;
+        }
+    }
     private static boolean login() {
 
         Scanner sc = new Scanner(System.in);
@@ -272,6 +390,8 @@ public class Main {
         }
     }
 
+
+    // CARGA DE DATOS
     private static void cargarPokemonsEnSistema(List<Pokemon> LIST_POKEMONS) {
         Pokemon p1 = new Agua("Blastoise", 19, "Pokeball", false, null, false);
         Pokemon p2 = new Fuego("Charizar", 9, "Pokeball", false, null, false);
@@ -314,7 +434,6 @@ public class Main {
         LIST_POKEMONS.add(p19);
         LIST_POKEMONS.add(p20);
     }
-
     private static void cargarEntrenadoresEnSistema(List<Entrenador> LIST_ENTRENADORES, List<Pokemon> LIST_POKEMONS) {
         Entrenador e1 = new EntrenadorDeCalle("Ash", 6, 10);
         Entrenador e2 = new EntrenadorDeCalle("Misty", 19, new Pokemon[]{LIST_POKEMONS.get(0), LIST_POKEMONS.get(1), LIST_POKEMONS.get(2)}, 10);
